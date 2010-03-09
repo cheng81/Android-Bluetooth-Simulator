@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/hello"
+    />
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/Enable" android:text="Enable"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Disable" android:id="@+id/Disable"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/Discovery" android:text="Discovery"></Button>
+
+<ListView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/Devices"
+android:choiceMode="singleChoice">
+</ListView>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/StartServer" android:text="Start Server"></Button>
+<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Start Client" android:id="@+id/StartClient"></Button>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/EchoResponse" android:text="echo response"></TextView>
+</LinearLayout>
