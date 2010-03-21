@@ -42,19 +42,21 @@ public class BluetoothServerSocket {
 		InputStream is = s.getInputStream();
 		Log.i(TAG, "creating btsocket, reading btaddr...");
 		int read;
-		byte[] buf = new byte[100];
-		read = is.read(buf);
-		String btaddr = new String(buf,0,read);
+		byte[] buf = new byte[25];
+
 		
-//		byte read;
-//		InputStreamReader isr = new InputStreamReader(is);
-//		int read;
-//		while('\n' != (char)(read=isr.read())) {
-//			sb.append((char)read);
-//		}
-//		String btaddr = sb.toString().trim();
+		
+		int idx = 0;
+		do {
+			read = is.read();
+			buf[idx] = (byte)read;
+			idx++;
+		} while( '\n' != read );
+		
+		String btaddr = new String(buf,0,idx-1);
+		
 		Log.i(TAG, "received btaddr: " + btaddr);
-		BluetoothDevice d = emulator.lookupBT(btaddr);
+		BluetoothDevice d = emulator.lookupBT(btaddr.trim());
 		return new BluetoothSocket(s, d);
 	}
 	

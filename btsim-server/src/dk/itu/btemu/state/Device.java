@@ -7,6 +7,8 @@ public class Device {
 
 	String ipAddr;
 	String btAddr;
+	
+	boolean isAndroidEmulator = true;
 
 	/**
 	 * The port at which is running the emulator
@@ -50,5 +52,11 @@ public class Device {
 	}
 	public int getEmulatorPort() {
 		return emulatorPort;
+	}
+	public boolean isAndroidEmulator() {
+		return isAndroidEmulator;
+	}
+	public void setAndroidEmulator(boolean isAndroidEmulator) {
+		this.isAndroidEmulator = isAndroidEmulator;
 	}
 }

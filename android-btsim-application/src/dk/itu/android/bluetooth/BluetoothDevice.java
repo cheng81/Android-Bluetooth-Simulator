@@ -1,16 +1,42 @@
 package dk.itu.android.bluetooth;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 import dk.itu.android.btemu.service.BTService;
 
-public class BluetoothDevice implements Serializable {
+public class BluetoothDevice implements Parcelable {
+	
+	public static Parcelable.Creator<BluetoothDevice> CREATOR = new Parcelable.Creator<BluetoothDevice>() {
+		@Override
+		public BluetoothDevice createFromParcel(Parcel source) {
+			BluetoothDevice out = new BluetoothDevice();
+			out.addr = source.readString();
+			out.tcpAddr = source.readString();
+			out.name = source.readString();
+			Parcelable[] tmp = source.readParcelableArray(BluetoothDevice.class.getClassLoader());
+			for(Parcelable s : tmp) {
+				out.services.add((BTService)s);
+			}
+			return out;
+		}
+		@Override
+		public BluetoothDevice[] newArray(int size) {
+			return new BluetoothDevice[size];
+		}
+	};
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeString(addr);
+		out.writeString(tcpAddr);
+		out.writeString(name);
+		out.writeParcelableArray(services.toArray(new BTService[]{}), 0);
+	}
+
 	
 	//constants
 	public static final String ACTION_ACL_CONNECTED = "dk.android.bluetooth.device.action.ACL_CONNECTED";
@@ -33,11 +59,6 @@ public class BluetoothDevice implements Serializable {
 	public static final int ERROR = 0x80000000;
 	//
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	//
 	public BluetoothSocket createRfcommSocketToServiceRecord(UUID uuid) throws IOException {
 		String uuids = uuid.toString();
@@ -48,7 +69,7 @@ public class BluetoothDevice implements Serializable {
 			}
 				
 		}
-		return null;
+		throw new IOException("sdp serivce discovery failed: service not found");
 	}
 	public int describeContents(){
 		return -1;
@@ -58,20 +79,17 @@ public class BluetoothDevice implements Serializable {
 	}
 	public String getAddress(){ return addr; }
 	public BluetoothClass getBluetoothClass(){ return btClass; }
-	int getBondState() {
+	public int getBondState() {
 		return BOND_NONE;
 	}
 	public String getName() {
 		return name;
 	}
 	public int hashCode() {
-		return -1;
+		return addr.hashCode();
 	}
 	public String toString() {
-		return "";
-	}
-	public void writeToParcel(Parcel out, int flags) {
-		//not supported?
+		return "BluetoothDevice " + addr;
 	}
 	//
 	
@@ -89,6 +107,13 @@ public class BluetoothDevice implements Serializable {
 	public BluetoothDevice(String btAddr, String tcpAddr) {
 		this.addr = btAddr;
 		this.tcpAddr = tcpAddr;
+		this.services = new ArrayList<BTService>();
+		this.btClass = new BluetoothClass(
+			android.bluetooth.BluetoothClass.Device.PHONE_SMART,
+			android.bluetooth.BluetoothClass.Device.Major.PHONE,
+			android.bluetooth.BluetoothClass.Service.NETWORKING);
+	}
+	private BluetoothDevice() {
 		this.services = new ArrayList<BTService>();
 		this.btClass = new BluetoothClass(
 			android.bluetooth.BluetoothClass.Device.PHONE_SMART,

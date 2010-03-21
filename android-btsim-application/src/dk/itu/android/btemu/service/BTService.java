@@ -1,13 +1,33 @@
 package dk.itu.android.btemu.service;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class BTService implements Serializable {
+public class BTService implements Parcelable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	public static Parcelable.Creator<BTService> CREATOR = new Parcelable.Creator<BTService>() {
+		@Override
+		public BTService createFromParcel(Parcel source) {
+			BTService out = new BTService();
+			out.tcpPort = source.readInt();
+			out.uuid = source.readString();
+			return out;
+		}
+		@Override
+		public BTService[] newArray(int size) {
+			return new BTService[size];
+		}
+	};
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(tcpPort);
+		dest.writeString(uuid);
+	}
 	
 	int tcpPort;
 	String uuid;

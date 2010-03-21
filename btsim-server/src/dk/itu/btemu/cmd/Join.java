@@ -25,9 +25,14 @@ public class Join extends BaseCommand {
 		Device device = new Device(ipAddress, btAddress);
 		State.getInstance().put(btAddress, device);
 		
-		BTMacForwardingsChecker checker = new BTMacForwardingsChecker();
-		System.out.println("running checker...");
-		checker.run();
+		
+		if(null == getParam("not.android.emulator")) {
+			BTMacForwardingsChecker checker = new BTMacForwardingsChecker();
+			System.out.println("running checker...");
+			checker.run();
+		} else {
+			device.setAndroidEmulator(false);
+		}
 	}
 
 	@Override

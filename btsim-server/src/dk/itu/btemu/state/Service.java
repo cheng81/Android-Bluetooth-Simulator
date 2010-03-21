@@ -19,8 +19,15 @@ public class Service {
 		this.UUID = UUID;
 		this.tcpPort = tcpPort;
 		this.device = device;
-		this.hostPort = Server.next();
-		createNetworkRedirection();
+		
+		if(device.isAndroidEmulator()) {
+			this.hostPort = Server.next();
+			createNetworkRedirection();
+		} else {
+			System.out.println("not-android-emulator service");
+			this.hostPort = tcpPort;
+		}
+		
 	}
 	private void createNetworkRedirection() {
 		System.out.println("creating network forwarding from "+tcpPort+" to "+hostPort);

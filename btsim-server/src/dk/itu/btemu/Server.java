@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-	public static String ADB_CMD_PATH = "";//Applications/code/android-sdk/tools/";
+	public static String ADB_CMD_PATH = "";//"/Applications/code/android-sdk/tools/";
 	public static String ADB_EXE = "adb";
 	public static String ADB_CMD(){ return ADB_CMD_PATH + ADB_EXE; }
 	static int StartPort = 8123;

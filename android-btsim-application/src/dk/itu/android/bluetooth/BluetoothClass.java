@@ -1,10 +1,24 @@
 package dk.itu.android.bluetooth;
 
-import java.io.Serializable;
-
 import android.os.Parcel;
+import android.os.Parcelable;
 
-public class BluetoothClass implements Serializable {
+public class BluetoothClass implements Parcelable {
+	
+	public static Parcelable.Creator<BluetoothClass> CREATOR = new Parcelable.Creator<BluetoothClass>() {
+		@Override
+		public BluetoothClass createFromParcel(Parcel source) {
+			BluetoothClass out = new BluetoothClass();
+			out.dClass = source.readInt();
+			out.mdClass = source.readInt();
+			out.services = source.createIntArray();
+			return out;
+		}
+		@Override
+		public BluetoothClass[] newArray(int size) {
+			return new BluetoothClass[size];
+		}
+	};
 	
 	public static class Device {
 		public static class Major {
@@ -17,10 +31,6 @@ public class BluetoothClass implements Serializable {
 		public static final int NETWORKING = android.bluetooth.BluetoothClass.Service.NETWORKING;
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	int dClass;
 	int mdClass;
 	int[] services;
@@ -56,10 +66,14 @@ public class BluetoothClass implements Serializable {
 		return false;
 	}
 	public int hashCode() {
-		return -1;
+		int out = dClass+mdClass;
+		for(int i : services) { out+=i; }
+		return out;
 	}
 	public void writeToParcel(Parcel out, int flags) {
-		//not supported?
+		out.writeInt(dClass);
+		out.writeInt(mdClass);
+		out.writeIntArray(services);
 	}
 	//
 	
