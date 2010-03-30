@@ -80,7 +80,7 @@ public class Server {
 						String sport = s.substring("--port=".length());
 						port = Integer.parseInt(sport);
 					} else if(s.startsWith("--adb.path=")) {
-						ADB_CMD_PATH = s.substring("--adb.path".length());
+						ADB_CMD_PATH = s.substring("--adb.path=".length());
 					}
 				}
 			}
@@ -94,6 +94,7 @@ public class Server {
 		s.start();
 		
 		System.out.println("Server started on port " + s.port);
+		System.out.println("ADB command: "+ ADB_CMD());
 		System.out.println("press any key to exit");
 		System.in.read();
 		System.out.println("exiting...");

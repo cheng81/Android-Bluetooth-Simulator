@@ -11,7 +11,7 @@ public class BTEnableControl extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.btenablecontrol);
+        setContentView(R.layout.ctrl);
         
         BluetoothAdapter.SetContext(this);
 	}
