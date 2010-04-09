@@ -34,7 +34,7 @@ public class Main extends Activity {
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			if(BluetoothDevice.ACTION_FOUND.equals(action)) {
-				addDevice( (BluetoothDevice)intent.getSerializableExtra(BluetoothDevice.EXTRA_DEVICE) );
+				addDevice( (BluetoothDevice)intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE) );
 			}
 		}
 	};
