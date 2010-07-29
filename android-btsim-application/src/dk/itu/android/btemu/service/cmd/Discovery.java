@@ -68,11 +68,11 @@ public class Discovery extends NoParamsBaseCommand {
 			if(line==null) break;
 			
 			String[] parts = line.trim().split("--");
-			dk.itu.android.bluetooth.BluetoothDevice d = new BluetoothDevice(parts[0], parts[1]);
+			dk.itu.android.bluetooth.BluetoothDevice d = new BluetoothDevice(parts[0], parts[1],parts[2]);
 			
-			if(parts.length>2) {
-				if(parts[2].length()>0) {
-					String[] sParts = parts[2].split("<><>");
+			if(parts.length>3) {
+				if(parts[3].length()>0) {
+					String[] sParts = parts[3].split("<><>");
 					for(String p : sParts) {
 						String[] s = p.split("<>");
 						d.addService(s[0], Integer.parseInt(s[1]));

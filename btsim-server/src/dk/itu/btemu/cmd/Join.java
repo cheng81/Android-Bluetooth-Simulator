@@ -11,6 +11,7 @@ import dk.itu.btemu.State;
 import dk.itu.btemu.state.Device;
 
 public class Join extends BaseCommand {
+	int port = -1;
 
 	public Join(Socket s, InputStreamReader in) {
 		super(s,in);
@@ -30,6 +31,7 @@ public class Join extends BaseCommand {
 			BTMacForwardingsChecker checker = new BTMacForwardingsChecker();
 			System.out.println("running checker...");
 			checker.run();
+			port = device.getEmulatorPort();
 		} else {
 			device.setAndroidEmulator(false);
 		}
@@ -37,6 +39,9 @@ public class Join extends BaseCommand {
 
 	@Override
 	protected void writeResponse(OutputStream out) throws IOException {
+		if(port > 0) {
+			out.write( (port+"\n").getBytes("UTF-8") );
+		}
 	}
 	
 	

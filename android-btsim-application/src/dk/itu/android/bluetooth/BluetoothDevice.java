@@ -104,9 +104,10 @@ public class BluetoothDevice implements Parcelable {
 	 * @param uuid
 	 * @param port
 	 */
-	public BluetoothDevice(String btAddr, String tcpAddr) {
+	public BluetoothDevice(String btAddr, String tcpAddr, String name) {
 		this.addr = btAddr;
 		this.tcpAddr = tcpAddr;
+		this.name = name;
 		this.services = new ArrayList<BTService>();
 		this.btClass = new BluetoothClass(
 			android.bluetooth.BluetoothClass.Device.PHONE_SMART,

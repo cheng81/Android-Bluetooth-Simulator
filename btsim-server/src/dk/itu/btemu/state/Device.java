@@ -7,6 +7,7 @@ public class Device {
 
 	String ipAddr;
 	String btAddr;
+	String name;
 	
 	boolean isAndroidEmulator = true;
 
@@ -44,10 +45,14 @@ public class Device {
 	public String getIpAddr() {
 		return ipAddr;
 	}
+	public String getName() {
+		return name;
+	}
 	public List<Service> getServices() {
 		return services;
 	}
 	public void setEmulatorPort(int emulatorPort) {
+		this.name = "emulator-"+emulatorPort;
 		this.emulatorPort = emulatorPort;
 	}
 	public int getEmulatorPort() {

@@ -30,7 +30,7 @@ public class Discovery extends BaseCommand {
 		for( Device d : devices ) {
 			if(d.getBtAddr().equals(btAddr))
 				continue;
-			String cur = d.getBtAddr() + "--" + d.getIpAddr() + "--";
+			String cur = d.getBtAddr() + "--" + d.getIpAddr() + "--" + d.getName() + "--";
 			boolean f = true;
 			for(Service s : d.getServices()) {
 				if(f){f=!f;}else{cur+="<><>";}

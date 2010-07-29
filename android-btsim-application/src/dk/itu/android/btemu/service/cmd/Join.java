@@ -1,7 +1,9 @@
 package dk.itu.android.btemu.service.cmd;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 
@@ -13,7 +15,12 @@ public class Join extends BaseCommand {
 
 	@Override
 	protected void readResponse(InputStream in) throws IOException {
-		//ok, we don't really care about the response for join
+		//get the emulator port number
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		String p = br.readLine();
+		String name = "emulator-" + p;
+		name = name.trim();
+		dk.itu.android.bluetooth.BluetoothAdapter.getDefaultAdapter().setName(name);
 	}
 
 	@Override
