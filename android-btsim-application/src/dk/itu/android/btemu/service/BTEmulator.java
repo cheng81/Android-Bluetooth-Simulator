@@ -83,9 +83,10 @@ public class BTEmulator {
 			List<BluetoothDevice> devices = future.get();
 			for(BluetoothDevice d : devices) {
 				Log.i(TAG, "check btaddr: "+d.getAddr() + " == " + btAddr + "?");
-				if(d.getAddr().equals(btAddr))
+				if(d.getAddr().equals(btAddr)) {
 					Log.i(TAG, "btAddr match, return device");
 					return d;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
